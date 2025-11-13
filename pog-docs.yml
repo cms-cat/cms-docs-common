@@ -1,0 +1,40 @@
+# POG Documentation Links
+# This file contains the authoritative list of POG documentation links
+# More info: https://cms-analysis-corrections.docs.cern.ch/development/
+
+pog_docs:
+  LUM:
+    fallback: "https://twiki.cern.ch/twiki/bin/view/CMS/TWikiLUM"
+    Run2: "https://twiki.cern.ch/twiki/bin/view/CMS/LumiRecommendationsRun2"
+    Run3: "https://twiki.cern.ch/twiki/bin/view/CMS/LumiRecommendationsRun3"
+
+  EGM:
+    fallback: "https://twiki.cern.ch/twiki/bin/view/CMS/EgammaPOG"
+    Run2: "https://twiki.cern.ch/twiki/bin/view/CMS/EgammaUL2016To2018"
+    Run3: "https://twiki.cern.ch/twiki/bin/viewauth/CMS/EgammSFandSSRun3"
+
+  MUO:
+    fallback: "https://muon-wiki.docs.cern.ch/guidelines/corrections/"
+
+  JME:
+    fallback: "https://twiki.cern.ch/twiki/bin/view/CMS/JetMET"
+    Run2: "https://twiki.cern.ch/twiki/bin/view/CMS/JetMET#Run2_recommendations"
+    Run3: "https://twiki.cern.ch/twiki/bin/view/CMS/JetMET#Run3_recommendations"
+
+  TAU:
+    fallback: "https://twiki.cern.ch/twiki/bin/view/CMS/Tau#Instructions_Recommendations"
+
+  BTV:
+    fallback: "https://btv-wiki.docs.cern.ch/"
+    era:
+      Run2-2016preVFP-UL-NanoAODv9: "https://btv-wiki.docs.cern.ch/ScaleFactors/Run2UL2016preVFP/"
+      Run2-2016postVFP-UL-NanoAODv9: "https://btv-wiki.docs.cern.ch/ScaleFactors/Run2UL2016postVFP/"
+      Run2-2017-UL-NanoAODv9: "https://btv-wiki.docs.cern.ch/ScaleFactors/Run2UL2017/"
+      Run2-2018-UL-NanoAODv9: "https://btv-wiki.docs.cern.ch/ScaleFactors/Run2UL2018/"
+      Run3-22CDJun23-Summer22-NanoAODv11: "https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer22-PartialReReco/"
+      Run3-22EFGJun23-Summer22EE-NanoAODv11: "https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer22EE-PartialReReco/"
+      Run3-22CDSep23-Summer22-NanoAODv12: "https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer22/"
+      Run3-22EFGSep23-Summer22EE-NanoAODv12: "https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer22EE/"
+      Run3-23CSep23-Summer23-NanoAODv12: "https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer23/"
+      Run3-23DSep23-Summer23BPix-NanoAODv12: "https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer23BPix/"
+      Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15: "https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer24/"

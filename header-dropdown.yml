@@ -1,25 +1,30 @@
 dropdowns:
-  - title: "CMS POG Docs"
+  - title: "CMS Docs"
     icon: "/assets/CMSlogo_white_nolabel_1024_May2014.png"
     links:
-      - text: "Analysis Corrections | CrossPOG"
+      - text: "Analysis Docs | CAT"
+        url: "https://cms-analysis.docs.cern.ch/"
+        target: "_blank"
+      - text: "Analysis Corrections | XPOG"
         url: "https://cms-analysis-corrections.docs.cern.ch/"
         target: "_blank"
-      - text: "BTV Docs"
-        url: "https://btv-wiki.docs.cern.ch/"
+      - text: "BTV POG"
+        url: "https://cms-analysis-corrections.docs.cern.ch/"
         target: "_blank"
-      - text: "JetMet TWiki"
-        url: "https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetMET#Quick_links_to_current_recommend"
+        submenu:
+          - text: "BTV Private Docs"
+            url: "https://btv-wiki.docs.cern.ch/"
+            target: "_blank"
+          - text: "BTV Public Docs"
+            url: "https://btv-public.docs.cern.ch/"
+            target: "_blank"
+  - title: "Corrections"
+    auto_generate_from:
+      file: "cms-docs-common/pog-docs.yml"  # Auto-generate nested links from YAML
+      key: "pog_docs"  # Navigate to this key in the YAML (optional)
+    links:
+      # Manually defined links come first
+      - text: "Corrections"
+        url: "https://cms-analysis-corrections.docs.cern.ch/"
         target: "_blank"
-      - text: "E/Gamma TWiki"
-        url: "https://twiki.cern.ch/twiki/bin/viewauth/CMS/EgammaPOG"
-        target: "_blank"
-      - text: "MUO Docs"
-        url: "https://muon-wiki.docs.cern.ch/guidelines/"
-        target: "_blank"
-      - text: "TAU TWiki"
-        url: "https://twiki.cern.ch/twiki/bin/view/CMS/Tau#Instructions_Recommendations"
-        target: "_blank"
-      - text: "PRO TWiki"
-        url: "https://twiki.cern.ch/twiki/bin/viewauth/CMS/TaggedProtonsPOGRecommendations"
-        target: "_blank"
+      # POG links are automatically appended from pog-docs.yml
