@@ -2,10 +2,14 @@ site_name: CMS Common Documentation
 site_description: CMS Common Documentation
 site_author: CERN Authoring
 site_url: https://cms-docs-common.docs.cern.ch/
+docs_dir: docs
 
 repo_name: GitLab
 repo_url: https://gitlab.cern.ch/cms-analysis/services/cms-docs-common
-edit_uri: 'blob/master/docs'
+edit_uri: '-/edit/main/docs/'
+
+nav:
+  - Home: index.md
 
 theme:
   name: material
@@ -29,17 +33,14 @@ theme:
   features:
     - navigation.top
 
-extra_css:
-  - stylesheets/fonts.css
-
 markdown_extensions:
   - attr_list
 
 plugins:
   - search
-  - git-revision-date
+  - git-revision-date-localized
   - header-dropdown:
-      config_file: "data/header-dropdown.yaml"
+      config_file: "data/header-dropdown.yml"
 
 # # [Legacy] If you want to use only one language for your documentation
 # # and you don't want to configure it through the i18n plugin
