@@ -1,6 +1,6 @@
 dropdowns:
   - title: "CMS Docs"
-    icon: "/CMSlogo_white_nolabel_1024_May2014.png"
+    icon: "/assets/CMSlogo_white_nolabel_1024_May2014.png"
     links:
       - text: "CAT | Analysis Docs"
         url: "https://cms-analysis.docs.cern.ch/"
