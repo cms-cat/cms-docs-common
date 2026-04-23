@@ -1,9 +1,22 @@
 .job-image: &job-image ghcr.io/cms-cat/mkdocs-material:latest
 
 .job-script: &job-script
+  - export DOCS_DIR=$(python - <<'PY'
+from pathlib import Path
+import yaml
+
+cfg = {}
+mkdocs_yml = Path("mkdocs.yml")
+if mkdocs_yml.exists():
+    with mkdocs_yml.open() as f:
+        cfg = yaml.safe_load(f) or {}
+print(cfg.get("docs_dir", "docs"))
+PY
+    )
+  - mkdir -p "$DOCS_DIR"
   - if [[ -f requirements.txt ]]; then pip install -r requirements.txt; fi;
   - wget -O header-dropdown.yml https://gitlab.cern.ch/cms-analysis/services/cms-docs-common/-/raw/main/data/header-dropdown.yml
-  - wget -O CMSlogo_white_nolabel_1024_May2014.png https://gitlab.cern.ch/cms-analysis/services/cms-docs-common/-/raw/main/CMSlogo_white_nolabel_1024_May2014.png
+  - wget -O "$DOCS_DIR/CMSlogo_white_nolabel_1024_May2014.png" https://gitlab.cern.ch/cms-analysis/services/cms-docs-common/-/raw/main/CMSlogo_white_nolabel_1024_May2014.png
   - mkdocs build -d public
 
 variables:

@@ -35,7 +35,8 @@ template at build time.
 - Uses `ghcr.io/cms-cat/mkdocs-material:latest` as the build image.
 - Installs `requirements.txt` if your project provides one.
 - Checks out git submodules recursively.
-- Downloads the shared `header-dropdown.yml` and CMS logo asset.
+- Downloads the shared `header-dropdown.yml`.
+- Downloads the CMS logo asset into your MkDocs `docs_dir` using the value defined in your `mkdocs.yml`.
 - Runs `mkdocs build -d public`.
 - Runs a `validation` job on non-default branches.
 - Runs a `pages` job on the default branch and publishes `public/`.
