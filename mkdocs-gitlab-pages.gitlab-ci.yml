@@ -2,8 +2,8 @@
 
 .job-script: &job-script
   - if [[ -f requirements.txt ]]; then pip install -r requirements.txt; fi;
-  - wget -O header-dropdown.yml https://gitlab.com/cms-analysis/services/cms-docs-common/-/raw/master/data/header-dropdown.yml
-  - wget -O CMSlogo_white_nolabel_1024_May2014.png https://gitlab.com/cms-analysis/services/cms-docs-common/-/raw/master/CMSlogo_white_nolabel_1024_May2014.png
+  - wget -O header-dropdown.yml https://gitlab.cern.ch/cms-analysis/services/cms-docs-common/-/raw/master/data/header-dropdown.yml
+  - wget -O CMSlogo_white_nolabel_1024_May2014.png https://gitlab.cern.ch/cms-analysis/services/cms-docs-common/-/raw/master/CMSlogo_white_nolabel_1024_May2014.png
   - mkdocs build -d public
 
 variables:
