@@ -1,0 +1,66 @@
+site_name: CMS Common Documentation
+site_description: CMS Common Documentation
+site_author: CERN Authoring
+site_url: https://cms-docs-common.docs.cern.ch/
+
+repo_name: GitLab
+repo_url: https://gitlab.cern.ch/cms-analysis/services/cms-docs-common
+edit_uri: 'blob/master/docs'
+
+theme:
+  name: material
+  font: false
+  palette:
+    # Palette toggle for light mode
+    - media: '(prefers-color-scheme: light)'
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: '(prefers-color-scheme: dark)'
+      scheme: slate
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.top
+
+extra_css:
+  - stylesheets/fonts.css
+
+markdown_extensions:
+  - attr_list
+
+plugins:
+  - search
+  - git-revision-date
+  - header-dropdown:
+      config_file: "data/header-dropdown.yaml"
+
+# # [Legacy] If you want to use only one language for your documentation
+# # and you don't want to configure it through the i18n plugin
+# # you can still use the legacy configuration settings to do it
+# # using the nav property as follows:
+
+# nav:
+#     - Introduction: index.md
+#     - 'Chapter 1':
+#       - 'Chapter 1': chapter1/file.en.md
+#       - 'Chapter 1.1':
+#         - 'Chapter 1.1': chapter1/subchapter1/subfile.en.md
+#         - 'Chapter 1.1.1':
+#           - 'Chapter 1.1.1': chapter1/subchapter1/subchapter1a/file1a.en.md
+#           - 'Chapter 1.1.2': chapter1/subchapter1/subchapter1a/filewithimage.en.md
+#     - 'Chapter 2': chapter2/index.en.md
+#     - 'Interesting links': interesting_links/index.en.md
+#     - 'MkDocs official documentation': https://www.mkdocs.org/
+
+# # Notice that in this case, and since your documentation is not using
+# # i18n plugin, you don't have to follow the convection filename.<language>.md
+# # for your files. This is only required for using the i18n plugin. In addition,
+# # for those users who want to use this configuration setting,
+# # at least a file index.md is mandatory, so it has to be added or be renamed the current index.en.md.

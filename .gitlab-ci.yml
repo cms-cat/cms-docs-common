@@ -1,0 +1,3 @@
+include:
+  - project: 'cms-analysis/services/cms-docs-common'
+    file: 'mkdocs-gitlab-pages.gitlab-ci.yml'
