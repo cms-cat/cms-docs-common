@@ -3,15 +3,30 @@
 .job-script: &job-script
   - |
       export DOCS_DIR=$(python - <<'PY'
+      from ast import literal_eval
       from pathlib import Path
-      import yaml
+      import re
 
-      cfg = {}
+      docs_dir = "docs"
       mkdocs_yml = Path("mkdocs.yml")
       if mkdocs_yml.exists():
-          with mkdocs_yml.open() as f:
-              cfg = yaml.safe_load(f) or {}
-      print(cfg.get("docs_dir", "docs"))
+          for line in mkdocs_yml.read_text().splitlines():
+              stripped = line.lstrip()
+              if not stripped or stripped.startswith("#") or line != stripped:
+                  continue
+
+              match = re.match(r"docs_dir\s*:\s*(.*?)\s*(?:#.*)?$", stripped)
+              if not match:
+                  continue
+
+              value = match.group(1).strip()
+              if value and value[0] in {'"', "'"} and value[-1] == value[0]:
+                  value = literal_eval(value)
+              if value:
+                  docs_dir = value
+              break
+
+      print(f"Using {docs_dir}")
       PY
       )
       mkdir -p "$DOCS_DIR"
