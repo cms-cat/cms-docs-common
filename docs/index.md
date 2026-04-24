@@ -30,6 +30,25 @@ If your site already has a `plugins:` section, add only the
 `config_file: "header-dropdown.yml"` points to the file downloaded by the CI
 template at build time.
 
+## Local Builds
+
+For local builds only, download and commit the generated files from the root of
+your documentation repository before running `mkdocs build`. With the default
+`docs_dir: docs`, the logo should live in `docs/assets/`:
+
+```bash
+mkdir -p docs/assets
+wget -O header-dropdown.yml \
+  https://gitlab.cern.ch/cms-analysis/services/cms-docs-common/-/raw/main/data/header-dropdown.yml
+wget -O docs/assets/CMSlogo_white_nolabel_1024_May2014.png \
+  https://gitlab.cern.ch/cms-analysis/services/cms-docs-common/-/raw/main/CMSlogo_white_nolabel_1024_May2014.png
+git add header-dropdown.yml docs/assets/CMSlogo_white_nolabel_1024_May2014.png
+git commit -m "Add shared CMS docs assets for local builds"
+```
+
+GitLab CI overwrites and updates these files automatically, so this step is
+only needed for local builds.
+
 ## What it does
 
 - Uses `ghcr.io/cms-cat/mkdocs-material:latest` as the build image.

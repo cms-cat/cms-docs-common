@@ -11,36 +11,51 @@ Shared configuration and assets for CMS documentation sites using the [mkdocs-he
 
 ## Usage
 
-### As a Git Submodule
+### Include the GitLab CI Template
 
-Add this repository as a git submodule in your documentation repository:
+In your project's `.gitlab-ci.yml`, add:
 
-```bash
-cd your-docs-repo
-git submodule add https://github.com/cms-cat/cms-docs-common.git
+```yaml
+include:
+  - project: 'cms-analysis/services/cms-docs-common'
+    file: 'mkdocs-gitlab-pages.gitlab-ci.yml'
 ```
 
-Then reference it in your `mkdocs.yml`:
+### Update `mkdocs.yml`
+
+In your project's `mkdocs.yml`, add the shared header dropdown plugin:
 
 ```yaml
 plugins:
+  - search
   - header-dropdown:
-      config_file: "cms-docs-common/header-dropdown.yml"
+      config_file: "header-dropdown.yml"
 ```
 
-And add the CMS logo to your `extra_css` or copy it to your assets:
+If your site already has a `plugins:` section, add only the
+`header-dropdown` block and keep your existing plugins.
+
+`config_file: "header-dropdown.yml"` points to the file downloaded by the CI
+template at build time.
+
+### Local Builds
+
+For local builds only, download and commit the generated files from the root of
+your documentation repository before running `mkdocs build`. With the default
+`docs_dir: docs`, the logo should live in `docs/assets/`:
 
 ```bash
-cp cms-docs-common/CMSlogo_white_nolabel_1024_May2014.png docs/assets/
+mkdir -p docs/assets
+wget -O header-dropdown.yml \
+  https://gitlab.cern.ch/cms-analysis/services/cms-docs-common/-/raw/main/data/header-dropdown.yml
+wget -O docs/assets/CMSlogo_white_nolabel_1024_May2014.png \
+  https://gitlab.cern.ch/cms-analysis/services/cms-docs-common/-/raw/main/CMSlogo_white_nolabel_1024_May2014.png
+git add header-dropdown.yml docs/assets/CMSlogo_white_nolabel_1024_May2014.png
+git commit -m "Add shared CMS docs assets for local builds"
 ```
 
-### Updating
-
-To update to the latest shared configuration:
-
-```bash
-git submodule update --remote cms-docs-common
-```
+GitLab CI overwrites and updates these files automatically, so this step is
+only needed for local builds.
 
 ## Customization
 
@@ -49,7 +64,7 @@ You can extend the shared configuration with repository-specific dropdowns:
 ```yaml
 plugins:
   - header-dropdown:
-      config_file: "cms-docs-common/header-dropdown.yml"
+      config_file: "header-dropdown.yml"
       dropdowns:
         - title: "Project Specific"
           links:
@@ -106,4 +121,7 @@ More info: https://cms-analysis-corrections.docs.cern.ch/development/
 
 ## Maintaining
 
-To update the shared configuration, edit `header-dropdown.yml` and/or `pog-docs.yml` in this repository and commit. All documentation sites using this as a submodule can then pull the updates.
+To update the shared configuration used by the CI template, edit
+`data/header-dropdown.yml` and/or `pog-docs.yml` in this repository and commit.
+GitLab builds download the current files automatically; local-build copies can
+be refreshed by rerunning the `wget` commands above.
