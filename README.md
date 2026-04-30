@@ -4,10 +4,10 @@ Shared configuration and assets for CMS documentation sites using the [mkdocs-he
 
 ## Contents
 
-- **header-dropdown.yml**: Standard CMS POG documentation dropdown configuration with nested menus
-- **pog-docs.yml**: Authoritative list of POG documentation URLs (structured data)
-- **pog_docs_loader.py**: Python utility to load POG docs into dataclasses (for backward compatibility)
-- **CMSlogo_white_nolabel_1024_May2014.png**: CMS logo for header dropdown
+- **header-dropdown.yml**: Committed dropdown bootstrap configuration.
+- **pog-docs.yml**: Authoritative dropdown link data refreshed by CI.
+- **CMSlogo_white_nolabel_1024_May2014.png**: CMS logo for the header dropdown.
+- **mkdocs-gitlab-pages.gitlab-ci.yml**: Shared GitLab CI template for MkDocs builds.
 
 ## Usage
 
@@ -35,27 +35,29 @@ plugins:
 If your site already has a `plugins:` section, add only the
 `header-dropdown` block and keep your existing plugins.
 
-`config_file: "header-dropdown.yml"` points to the file downloaded by the CI
-template at build time.
+### Add the Committed Shared Files
 
-### Local Builds
-
-For local builds only, download and commit the generated files from the root of
-your documentation repository before running `mkdocs build`. With the default
-`docs_dir: docs`, the logo should live in `docs/assets/`:
+Download and commit the shared files from the root of your documentation
+repository. With the default `docs_dir: docs`, the logo should live in
+`docs/assets/`:
 
 ```bash
 mkdir -p docs/assets
 wget -O header-dropdown.yml \
-  https://gitlab.cern.ch/cms-analysis/services/cms-docs-common/-/raw/main/data/header-dropdown.yml
+  https://gitlab.cern.ch/cms-analysis/services/cms-docs-common/-/raw/main/header-dropdown.yml
+wget -O pog-docs.yml \
+  https://gitlab.cern.ch/cms-analysis/services/cms-docs-common/-/raw/main/pog-docs.yml
 wget -O docs/assets/CMSlogo_white_nolabel_1024_May2014.png \
   https://gitlab.cern.ch/cms-analysis/services/cms-docs-common/-/raw/main/CMSlogo_white_nolabel_1024_May2014.png
-git add header-dropdown.yml docs/assets/CMSlogo_white_nolabel_1024_May2014.png
-git commit -m "Add shared CMS docs assets for local builds"
+git add header-dropdown.yml pog-docs.yml docs/assets/CMSlogo_white_nolabel_1024_May2014.png
+git commit -m "Add shared CMS docs dropdown files"
 ```
 
-GitLab CI overwrites and updates these files automatically, so this step is
-only needed for local builds.
+The CI template refreshes only `pog-docs.yml` at build time, because that is
+the file expected to change when shared links are updated. Keep
+`header-dropdown.yml` and the CMS logo committed in each documentation
+repository. Rerun the commands above only if the bootstrap config or logo
+changes.
 
 ## Customization
 
@@ -72,56 +74,42 @@ plugins:
               url: "https://example.com"
 ```
 
-## POG Documentation URLs
+## Link Data
 
-### Using in MkDocs (Header Dropdown)
+The shared `header-dropdown.yml` uses `auto_generate_from` to build the CMS Docs
+dropdown from `pog-docs.yml`.
 
-The POG documentation is automatically included in `header-dropdown.yml` with clickable parent links and nested submenus for Run2/Run3/era-specific docs.
+To add or update shared links, edit `pog-docs.yml` in this repository:
 
-### Using in Python Code
-
-For backward compatibility with existing code that uses POG_DOCS dataclasses:
-
-```python
-from pog_docs_loader import POG_DOCS, Docs
-
-# Access POG documentation
-btv_docs = POG_DOCS["BTV"]
-print(btv_docs.fallback)  # https://btv-wiki.docs.cern.ch/
-print(btv_docs.Run2)       # None (BTV doesn't have Run2/Run3 split)
-print(btv_docs.era["Run3-22CDSep23-Summer22-NanoAODv12"])  # Era-specific URL
-```
-
-### Updating POG Documentation
-
-To add or update POG documentation URLs, simply edit `pog-docs.yml`:
-
-1. **Edit `pog-docs.yml`** - This is the single source of truth
-2. **Commit the file** - Dropdown links auto-generate, Python code auto-loads
-
-The dropdown plugin automatically generates nested menus from the YAML structure using the `auto_generate_from` feature.
-
-Structure in `pog-docs.yml`:
 ```yaml
 pog_docs:
-  POG_NAME:
-    fallback: "https://..."  # Used as clickable parent URL
-    Run2: "https://..."      # Creates "Run2" submenu item
-    Run3: "https://..."      # Creates "Run3" submenu item
-    era:                     # Nested dict creates submenu
-      era-name: "https://..."
+  "Top-level Link":
+    fallback: "https://example.com"
+    border-bottom: true
+
+  "Menu Group":
+    "Child Link": "https://example.com/child"
 ```
 
-The plugin recognizes special keys:
-- `fallback` or `url`: Makes the parent item clickable
-- Other string values: Create submenu items
-- Nested dicts: Create nested submenus
+The plugin recognizes `fallback` or `url` as the clickable parent URL, and
+passes link metadata such as `target` and `border-bottom` through to generated
+parent links. Other string values become submenu links.
 
 More info: https://cms-analysis-corrections.docs.cern.ch/development/
 
+## What the CI Template Does
+
+- Uses `ghcr.io/cms-cat/mkdocs-material:latest` as the build image.
+- Installs `requirements.txt` if your project provides one.
+- Checks out git submodules recursively.
+- Downloads the current shared `pog-docs.yml`.
+- Uses the committed `header-dropdown.yml` and CMS logo from your repository.
+- Runs `mkdocs build -d public`.
+- Runs a `validation` job on non-default branches.
+- Runs a `pages` job on the default branch and publishes `public/`.
+
+The template itself lives in `mkdocs-gitlab-pages.gitlab-ci.yml`.
+
 ## Maintaining
 
-To update the shared configuration used by the CI template, edit
-`data/header-dropdown.yml` and/or `pog-docs.yml` in this repository and commit.
-GitLab builds download the current files automatically; local-build copies can
-be refreshed by rerunning the `wget` commands above.
+When updating these instructions, keep `README.md` and `docs/index.md` in sync.

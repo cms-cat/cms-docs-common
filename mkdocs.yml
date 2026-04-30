@@ -40,7 +40,7 @@ plugins:
   - search
   - git-revision-date-localized
   - header-dropdown:
-      config_file: "data/header-dropdown.yml"
+      config_file: "header-dropdown.yml"
 
 # # [Legacy] If you want to use only one language for your documentation
 # # and you don't want to configure it through the i18n plugin

@@ -1,30 +1,6 @@
 dropdowns:
   - title: "CMS Docs"
     icon: "/assets/CMSlogo_white_nolabel_1024_May2014.png"
-    links:
-      - text: "Analysis Docs | CAT"
-        url: "https://cms-analysis.docs.cern.ch/"
-        target: "_blank"
-      - text: "Analysis Corrections | XPOG"
-        url: "https://cms-analysis-corrections.docs.cern.ch/"
-        target: "_blank"
-      - text: "BTV POG"
-        url: "https://cms-analysis-corrections.docs.cern.ch/"
-        target: "_blank"
-        submenu:
-          - text: "BTV Private Docs"
-            url: "https://btv-wiki.docs.cern.ch/"
-            target: "_blank"
-          - text: "BTV Public Docs"
-            url: "https://btv-public.docs.cern.ch/"
-            target: "_blank"
-  - title: "Corrections"
     auto_generate_from:
-      file: "cms-docs-common/pog-docs.yml"  # Auto-generate nested links from YAML
-      key: "pog_docs"  # Navigate to this key in the YAML (optional)
-    links:
-      # Manually defined links come first
-      - text: "Corrections"
-        url: "https://cms-analysis-corrections.docs.cern.ch/"
-        target: "_blank"
-      # POG links are automatically appended from pog-docs.yml
+      file: "pog-docs.yml"
+      key: "pog_docs"

@@ -33,8 +33,7 @@
       mkdir -p "$DOCS_DIR"
       mkdir -p "$DOCS_DIR/assets"
   - if [[ -f requirements.txt ]]; then pip install -r requirements.txt; fi;
-  - wget -O header-dropdown.yml https://gitlab.cern.ch/cms-analysis/services/cms-docs-common/-/raw/main/data/header-dropdown.yml
-  - wget -O "$DOCS_DIR/assets/CMSlogo_white_nolabel_1024_May2014.png" https://gitlab.cern.ch/cms-analysis/services/cms-docs-common/-/raw/main/CMSlogo_white_nolabel_1024_May2014.png
+  - wget -O pog-docs.yml https://gitlab.cern.ch/cms-analysis/services/cms-docs-common/-/raw/main/pog-docs.yml
   - mkdocs build -d public
 
 variables:
